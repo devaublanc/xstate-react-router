@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import ErrorPage from "../error-page";
+import ErrorScreen from "./ErrorScreen";
 import { StackNavigation } from "./core/StackNavigation";
 import HomeScreen from "./HomeScreen";
 import MainTab from "./MainTab";
@@ -18,7 +18,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainTab />,
-    errorElement: <ErrorPage />,
+    errorElement: <ErrorScreen />,
     children: [
       {
         index: true,
