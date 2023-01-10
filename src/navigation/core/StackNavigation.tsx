@@ -2,7 +2,6 @@ import { Flex } from "@chakra-ui/react";
 import {
   createContext,
   ReactElement,
-  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -12,7 +11,7 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Header } from "../../ui/Header";
 
 export type StackContext = {
-  setHeaderElement?: (header: ReactElement) => void;
+  setHeaderElement: (header: ReactElement) => void;
   setHeaderTitle?: (title: string) => void;
 };
 
@@ -22,7 +21,9 @@ export type StackNavigationProps = {
   headerElement?: ReactElement;
 };
 
-export const StackContext = createContext<StackContext>({});
+export const StackContext = createContext<StackContext>({
+  setHeaderElement: () => {},
+});
 
 export function StackNavigation({
   headerTitle,
