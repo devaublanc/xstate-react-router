@@ -12,7 +12,7 @@ import { Header } from "../../ui/Header";
 
 export type StackContext = {
   setHeaderElement: (header: ReactElement) => void;
-  setHeaderTitle?: (title: string) => void;
+  setHeaderTitle: (title: string) => void;
 };
 
 export type StackNavigationProps = {
@@ -23,6 +23,7 @@ export type StackNavigationProps = {
 
 export const StackContext = createContext<StackContext>({
   setHeaderElement: () => {},
+  setHeaderTitle: () => {},
 });
 
 export function StackNavigation({

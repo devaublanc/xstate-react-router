@@ -6,12 +6,14 @@ import { BottomTabNavigation } from "./core/BottomTabNavigation";
 import PickingIdleScreen from "./screens/picking/PickingIdleScreen";
 import PickingScanItemsScreen from "./screens/picking/PickingScanItemsScreen";
 import { Box, Heading } from "@chakra-ui/react";
+import PickingScanContainersScreen from "./screens/picking/PickingScanContainers";
 
 export const routes = {
   root: "/",
   picking: {
     root: "picking",
-    scanItems: "scan-items",
+    scanItems: "/picking/scan-items",
+    scanContainers: "/picking/scan-containers",
   },
   inbound: {
     root: "inbound",
@@ -62,6 +64,10 @@ export const router = createBrowserRouter([
           {
             path: routes.picking.scanItems,
             element: <PickingScanItemsScreen />,
+          },
+          {
+            path: routes.picking.scanContainers,
+            element: <PickingScanContainersScreen />,
           },
         ],
       },
