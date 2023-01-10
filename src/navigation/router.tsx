@@ -5,6 +5,7 @@ import HomeScreen from "./HomeScreen";
 import { BottomTabNavigation } from "./core/BottomTabNavigation";
 import PickingIdleScreen from "./screens/picking/PickingIdleScreen";
 import PickingScanItemsScreen from "./screens/picking/PickingScanItemsScreen";
+import { Box, Heading } from "@chakra-ui/react";
 
 export const routes = {
   root: "/",
@@ -24,6 +25,7 @@ export const router = createBrowserRouter([
     path: "/",
     element: (
       <BottomTabNavigation
+        headerElement={<Heading>Global Header</Heading>}
         items={[
           {
             id: "picking",
