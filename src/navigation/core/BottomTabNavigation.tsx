@@ -26,7 +26,7 @@ export function BottomTabNavigation({ items, headerElement }: BottomTabProps) {
   const values = useMemo(() => ({}), []);
   return (
     <BottomTabContext.Provider value={values}>
-      <Flex bg="#9d109d" flexDir={"column"} flex={1} h="100%">
+      <Flex bg="white" flexDir={"column"} flex={1} h="100%">
         {headerElement}
         <Flex flexDir={"column"} flex={1}>
           <Outlet />

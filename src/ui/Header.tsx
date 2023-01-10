@@ -8,9 +8,9 @@ export type HeaderProps = {
 };
 export function Header({ title, onGoBack }: HeaderProps) {
   return (
-    <Flex bg="green">
-      {onGoBack ? <ArrowBackIcon onClick={onGoBack} /> : null}
-      {title}
+    <Flex bg="#ebebeb" alignItems={"center"}>
+      {onGoBack ? <ArrowBackIcon onClick={onGoBack} fontSize="30px" /> : null}
+      <h2>{title}</h2>
     </Flex>
   );
 }

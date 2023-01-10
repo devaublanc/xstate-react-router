@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
         ]}
       />
     ),
-    errorElement: <ErrorScreen />,
+    // errorElement: <ErrorScreen />,
     children: [
       {
         index: true,

@@ -69,6 +69,13 @@ export function StackNavigation({
     [setHeaderElementState, setHeaderTitleState, location.pathname]
   );
 
+  useEffect(() => {
+    // window.addEventListener("popstate", e => {
+    //   console.log("back button");
+    // });
+    console.log("caca");
+  }, []);
+
   return (
     <StackContext.Provider value={values}>
       <Flex flexDir={"column"} flex={1} bg="red">
