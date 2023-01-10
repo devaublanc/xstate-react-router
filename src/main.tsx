@@ -4,18 +4,35 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./error-page";
 
 import "./index.css";
-import Contact from "./routes/contact";
-import Root from "./routes/root";
+import HomeScreen from "./screens/HomeScreen";
+import PickingIdleScreen from "./screens/PickingStack/screens/PickingIdleScreen";
+import MainTab from "./screens/MainTab";
+import PickingStack from "./screens/PickingStack/PickingStack";
+import PickingScanItemsScreen from "./screens/PickingStack/screens/PickingScanItemsScreen";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <MainTab />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "contacts/:contactId",
-        element: <Contact />,
+        index: true,
+        element: <HomeScreen />,
+      },
+      {
+        path: "picking",
+        element: <PickingStack />,
+        children: [
+          {
+            index: true,
+            element: <PickingIdleScreen />,
+          },
+          {
+            path: "scan-items",
+            element: <PickingScanItemsScreen />,
+          },
+        ],
       },
     ],
   },
