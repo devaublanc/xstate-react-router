@@ -42,6 +42,8 @@ export function StackNavigation({
       <Header
         title={headerTitleState}
         onGoBack={
+          // if current pathname === rootPath we are at the root level of the stack
+          // we should not display the go back arrow
           rootPath !== location.pathname ? () => navigate(-1) : undefined
         }
       />
@@ -51,6 +53,7 @@ export function StackNavigation({
   const [headerElementState, setHeaderElementState] =
     useState<ReactElement | null>(headerElement || defaultHeader);
 
+  // if location is updatated we should re evaluate if the default Header
   useEffect(() => {
     if (headerElement === undefined) {
       setHeaderElementState(defaultHeader);
