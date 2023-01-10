@@ -6,7 +6,8 @@ import {
   useMemo,
   useState,
 } from "react";
-import { Header } from "../../components/Header";
+import { Outlet } from "react-router-dom";
+import { Header } from "../../ui/Header";
 
 export type StackContext = {
   setHeaderElement?: (header: ReactElement) => void;
@@ -16,13 +17,11 @@ export type StackContext = {
 export type StackProviderProps = {
   headerTitle?: string;
   headerElement?: ReactElement;
-  children: ReactElement;
 };
 
 export const StackContext = createContext<StackContext>({});
 
 export function StackProvider({
-  children,
   headerTitle,
   headerElement,
 }: StackProviderProps) {
@@ -43,13 +42,11 @@ export function StackProvider({
     [setHeaderElementState, setHeaderTitleState]
   );
 
-  console.log(headerElementState);
   return (
     <StackContext.Provider value={values}>
       <Flex flexDir={"column"} flex={1} bg="red">
-        Stack
         {headerElementState}
-        {children}
+        <Outlet />
       </Flex>
     </StackContext.Provider>
   );

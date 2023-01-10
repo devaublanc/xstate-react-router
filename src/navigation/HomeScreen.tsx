@@ -1,9 +1,10 @@
 import { Box } from "@chakra-ui/react";
+import { Page } from "../ui/Page";
 
 export default function HomeScreen() {
   return (
-    <Box>
+    <Page>
       <h1>Home</h1>
-    </Box>
+    </Page>
   );
 }

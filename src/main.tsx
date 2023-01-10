@@ -4,11 +4,19 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./error-page";
 
 import "./index.css";
-import HomeScreen from "./screens/HomeScreen";
-import PickingIdleScreen from "./screens/PickingStack/screens/PickingIdleScreen";
-import MainTab from "./screens/MainTab";
-import PickingStack from "./screens/PickingStack/PickingStack";
-import PickingScanItemsScreen from "./screens/PickingStack/screens/PickingScanItemsScreen";
+import HomeScreen from "./navigation/HomeScreen";
+import PickingIdleScreen from "./navigation/screens/picking/PickingIdleScreen";
+import MainTab from "./navigation/MainTab";
+import PickingScanItemsScreen from "./navigation/screens/picking/PickingScanItemsScreen";
+import { StackNavigation } from "./navigation/core/StackNavigation";
+
+export const routes = {
+  root: "/",
+  picking: {
+    root: "picking",
+    scanItems: "scan-items",
+  },
+};
 
 const router = createBrowserRouter([
   {
@@ -21,15 +29,20 @@ const router = createBrowserRouter([
         element: <HomeScreen />,
       },
       {
-        path: "picking",
-        element: <PickingStack />,
+        path: routes.picking.root,
+        element: (
+          <StackNavigation
+            rootPath={`/${routes.picking.root}`}
+            headerTitle="Picking Stack"
+          />
+        ),
         children: [
           {
             index: true,
             element: <PickingIdleScreen />,
           },
           {
-            path: "scan-items",
+            path: routes.picking.scanItems,
             element: <PickingScanItemsScreen />,
           },
         ],

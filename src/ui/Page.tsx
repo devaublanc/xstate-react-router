@@ -2,7 +2,7 @@ import { Box, Flex } from "@chakra-ui/react";
 import { ReactElement } from "react";
 
 export type PageProps = {
-  children: ReactElement;
+  children: ReactElement | ReactElement[];
 };
 export function Page({ children }: PageProps) {
   return (
