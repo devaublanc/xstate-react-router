@@ -1,8 +1,8 @@
 import { Box } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
-import { Page } from "../../../ui/Page";
-import { useStackContext } from "../../core/StackNavigation";
+import { Page } from "../../../../core/ui/Page";
+import { useStackContext } from "../../../../core/navigation/StackNavigation";
 
 export default function PickingScanContainersScreen() {
   const { setHeaderElement } = useStackContext();

@@ -1,5 +1,5 @@
 import { Box } from "@chakra-ui/react";
-import { Page } from "../ui/Page";
+import { Page } from "../core/ui/Page";
 
 export default function HomeScreen() {
   return (

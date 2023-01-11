@@ -1,22 +1,22 @@
 import { createBrowserRouter } from "react-router-dom";
 import ErrorScreen from "./ErrorScreen";
-import { StackNavigation } from "./core/StackNavigation";
+import { StackNavigation } from "../core/navigation/StackNavigation";
 import HomeScreen from "./HomeScreen";
-import { BottomTabNavigation } from "./core/BottomTabNavigation";
-import PickingIdleScreen from "./screens/picking/PickingIdleScreen";
-import PickingScanItemsScreen from "./screens/picking/PickingScanItemsScreen";
-import { Box, Heading } from "@chakra-ui/react";
-import PickingScanContainersScreen from "./screens/picking/PickingScanContainers";
+import { BottomTabNavigation } from "../core/navigation/BottomTabNavigation";
+import PickingIdleScreen from "./screens/picking/screens/PickingIdleScreen";
+import PickingScanItemsScreen from "./screens/picking/screens/PickingScanItemsScreen";
+import { Heading } from "@chakra-ui/react";
+import PickingScanContainersScreen from "./screens/picking/screens/PickingScanContainers";
 
 export const routes = {
   root: "/",
   picking: {
-    root: "picking",
+    idle: "picking",
     scanItems: "/picking/scan-items",
     scanContainers: "/picking/scan-containers",
   },
   inbound: {
-    root: "inbound",
+    idle: "inbound",
     preDropping: "pre-dropping",
     dropping: "dropping",
   },
@@ -31,28 +31,28 @@ export const router = createBrowserRouter([
         items={[
           {
             id: "picking",
-            path: routes.picking.root,
+            path: routes.picking.idle,
             title: "Picking",
           },
           {
             id: "inbound",
-            path: routes.inbound.root,
+            path: routes.inbound.idle,
             title: "Inbound",
           },
         ]}
       />
     ),
-    // errorElement: <ErrorScreen />,
+    errorElement: <ErrorScreen />,
     children: [
       {
         index: true,
         element: <HomeScreen />,
       },
       {
-        path: routes.picking.root,
+        path: routes.picking.idle,
         element: (
           <StackNavigation
-            rootPath={`/${routes.picking.root}`}
+            rootPath={`/${routes.picking.idle}`}
             headerTitle="Picking Stack"
           />
         ),

@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { Header } from "../../ui/Header";
+import { Header } from "../ui/Header";
 
 export type StackContext = {
   setHeaderElement: (header: ReactElement) => void;
@@ -70,10 +70,11 @@ export function StackNavigation({
   );
 
   useEffect(() => {
-    // window.addEventListener("popstate", e => {
-    //   console.log("back button");
-    // });
-    console.log("caca");
+    const onGoBack = () => {
+      console.log("go back");
+    };
+    window.addEventListener("popstate", onGoBack);
+    return () => window.removeEventListener("popstate", onGoBack);
   }, []);
 
   return (
