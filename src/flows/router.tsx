@@ -1,13 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
-import ErrorScreen from "./ErrorScreen";
+import ErrorScreen from "./error/ErrorScreen";
 import { StackNavigation } from "../core/navigation/StackNavigation";
-import HomeScreen from "./HomeScreen";
+import HomeScreen from "./home/HomeScreen";
 import { BottomTabNavigation } from "../core/navigation/BottomTabNavigation";
-import PickingIdleScreen from "./screens/picking/screens/PickingIdleScreen";
-import PickingScanItemsScreen from "./screens/picking/screens/PickingScanItemsScreen";
+import PickingIdleScreen from "./picking/screens/PickingIdleScreen";
+import PickingScanItemsScreen from "./picking/screens/PickingScanItemsScreen";
 import { Heading } from "@chakra-ui/react";
-import PickingScanContainersScreen from "./screens/picking/screens/PickingScanContainers";
-import { XStatePickingProvider } from "./screens/picking/machines/XstatePickingMachineProvider";
+import PickingScanContainersScreen from "./picking/screens/PickingScanContainers";
+import { XStatePickingProvider } from "./picking/machines/XstatePickingMachineProvider";
 import { routes } from "./routes";
 
 export const router = createBrowserRouter([
@@ -41,7 +41,7 @@ export const router = createBrowserRouter([
         element: (
           <XStatePickingProvider>
             <StackNavigation
-              rootPath={`/${routes.picking.idle}`}
+              rootPath={routes.picking.idle}
               headerTitle="Picking Stack"
             />
           </XStatePickingProvider>

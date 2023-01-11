@@ -1,5 +1,6 @@
 import { createMachine } from "xstate";
-import { routes } from "../../../routes";
+import { wrongEventErrorHandlerFactory } from "../../../core/utils/xstate";
+import { routes } from "../../routes";
 
 import { PickingMachineContext, PickingMachineEvents } from "./types";
 
@@ -18,6 +19,7 @@ export const pickingMachine = createMachine({
     context: {} as PickingMachineContext,
     events: {} as PickingMachineEvents,
   },
+
   context: contextInitialState,
   initial: "idle",
   states: {
