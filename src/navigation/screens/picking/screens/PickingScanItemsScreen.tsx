@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Page } from "../../../../core/ui/Page";
-
-import { routes } from "../../../router";
+import { routes } from "../../../routes";
 
 export default function PickingScanItemsScreen() {
   return (

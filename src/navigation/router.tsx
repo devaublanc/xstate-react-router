@@ -7,20 +7,8 @@ import PickingIdleScreen from "./screens/picking/screens/PickingIdleScreen";
 import PickingScanItemsScreen from "./screens/picking/screens/PickingScanItemsScreen";
 import { Heading } from "@chakra-ui/react";
 import PickingScanContainersScreen from "./screens/picking/screens/PickingScanContainers";
-
-export const routes = {
-  root: "/",
-  picking: {
-    idle: "picking",
-    scanItems: "/picking/scan-items",
-    scanContainers: "/picking/scan-containers",
-  },
-  inbound: {
-    idle: "inbound",
-    preDropping: "pre-dropping",
-    dropping: "dropping",
-  },
-};
+import { XStatePickingProvider } from "./screens/picking/machines/XstatePickingMachineProvider";
+import { routes } from "./routes";
 
 export const router = createBrowserRouter([
   {
@@ -51,10 +39,12 @@ export const router = createBrowserRouter([
       {
         path: routes.picking.idle,
         element: (
-          <StackNavigation
-            rootPath={`/${routes.picking.idle}`}
-            headerTitle="Picking Stack"
-          />
+          <XStatePickingProvider>
+            <StackNavigation
+              rootPath={`/${routes.picking.idle}`}
+              headerTitle="Picking Stack"
+            />
+          </XStatePickingProvider>
         ),
         children: [
           {

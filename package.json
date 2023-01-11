@@ -7,8 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "postinstall": "yarn xstate:typegen",
-    "xstate:typegen": "xstate typegen \"src/**/*.ts?(x)\""
+    "postinstall": "yarn xstate:typegen"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.15",

@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router";
-
-import { routes } from "../../../router";
+import { routes } from "../../../routes";
 
 export function usePickingActionsImplems() {
   const navigate = useNavigate();

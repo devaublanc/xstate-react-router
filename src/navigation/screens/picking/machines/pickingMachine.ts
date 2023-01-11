@@ -1,5 +1,5 @@
 import { createMachine } from "xstate";
-import { routes } from "../../../router";
+import { routes } from "../../../routes";
 
 import { PickingMachineContext, PickingMachineEvents } from "./types";
 
@@ -7,11 +7,11 @@ const contextInitialState: PickingMachineContext = {
   orderId: null,
 };
 
-const PICKING_MACHINE_NAME = "pickingMachine";
+export const PICKING_MACHINE_ID = "pickingMachine";
 
 export const pickingMachine = createMachine({
   preserveActionOrder: true,
-  id: PICKING_MACHINE_NAME,
+  id: PICKING_MACHINE_ID,
   predictableActionArguments: true,
   tsTypes: {} as import("./pickingMachine.typegen").Typegen0,
   schema: {
