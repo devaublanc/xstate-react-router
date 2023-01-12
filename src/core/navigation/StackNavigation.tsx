@@ -3,7 +3,6 @@ import {
   createContext,
   ReactElement,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -47,14 +46,6 @@ export function StackNavigation({
     }),
     [setHeaderElement, setHeaderTitle]
   );
-
-  useEffect(() => {
-    const onGoBack = () => {
-      console.log("go back");
-    };
-    window.addEventListener("popstate", onGoBack);
-    return () => window.removeEventListener("popstate", onGoBack);
-  }, []);
 
   return (
     <StackContext.Provider value={values}>

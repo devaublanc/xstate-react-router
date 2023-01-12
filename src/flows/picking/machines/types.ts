@@ -3,6 +3,7 @@ export type PickingMachineContext = {
 };
 
 export type PickingMachineEvents =
+  | { type: "GO_BACK" }
   | { type: "GO_TO_SCAN_ITEMS" }
   | { type: "GO_TO_SCAN_CONTAINERS" }
   | { type: "FINISH" };

@@ -1,7 +1,7 @@
 import { useInterpret } from "@xstate/react";
 import { InterpreterFrom } from "xstate";
 
-import { createContext, useContext, useMemo } from "react";
+import { createContext, useContext, useEffect, useMemo } from "react";
 import { usePickingActionsImplems } from "./pickingActions";
 import { usePickingServicesImplems } from "./pickingServices";
 import { pickingMachine, PICKING_MACHINE_ID } from "./pickingMachine";
@@ -28,20 +28,22 @@ export function XStatePickingProvider({
       services,
     },
     state => {
-      // subscribes to state changes
+      // synchonize react router with Xstate
       const routeFromXState: string | undefined =
         state.meta[`${PICKING_MACHINE_ID}.${state.value}`]?.route;
       if (routeFromXState && routeFromXState !== location.pathname) {
-        // console.log("navigate to", routeFromState, location.pathname);
         navigate(routeFromXState);
       }
     }
   );
 
-  // Synchonize Xstate with react router
-  // const routeFromState: string | undefined =
-  //   state.meta[`${PICKING_MACHINE_ID}.${state.value}`];
-  // console.log("=======", state.value);
+  useEffect(() => {
+    const onGoBack = () => {
+      pickingService.send("GO_BACK");
+    };
+    window.addEventListener("popstate", onGoBack);
+    return () => window.removeEventListener("popstate", onGoBack);
+  }, []);
 
   const values = useMemo(() => ({ pickingService }), [pickingService]);
 
