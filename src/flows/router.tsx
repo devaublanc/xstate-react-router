@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
           {
             id: "picking",
             path: routes.picking.idle,
-            title: "Picking",
+            title: "PickingStack driven by XState",
             icon: <SunIcon />,
           },
           {

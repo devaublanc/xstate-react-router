@@ -9,7 +9,7 @@ export function Header({ title, onGoBack }: HeaderProps) {
   return (
     <Flex bg="#ebebeb" p={1} alignItems={"center"}>
       {onGoBack ? <ArrowBackIcon onClick={onGoBack} boxSize="5" /> : null}
-      <Text>{title}</Text>
+      <Text fontWeight="bold">{title}</Text>
     </Flex>
   );
 }
