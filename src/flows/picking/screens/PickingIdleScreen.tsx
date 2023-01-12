@@ -1,5 +1,5 @@
-import { Button, Tag, Text } from "@chakra-ui/react";
-import { Page } from "../../../core/ui/Page";
+import { Button, Text } from "@chakra-ui/react";
+
 import { Info } from "../components/Info";
 
 import { usePickingService } from "../machines/XstatePickingMachineProvider";

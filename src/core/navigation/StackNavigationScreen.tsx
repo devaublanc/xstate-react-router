@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/react";
 import { ReactElement, useEffect } from "react";
 
-import { StackNavigationProps, useStackContext } from "./StackNavigation";
+import { useStackContext } from "./StackNavigation";
 
 export type StackContext = {
   setHeaderElement: (header: ReactElement) => void;
