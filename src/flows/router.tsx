@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Link } from "react-router-dom";
 import ErrorScreen from "./error/ErrorScreen";
 import { StackNavigation } from "../core/navigation/StackNavigation";
 import HomeScreen from "./home/HomeScreen";
@@ -16,7 +16,11 @@ export const router = createBrowserRouter([
     path: "/",
     element: (
       <BottomTabNavigation
-        headerElement={<Heading p="2">Global Header</Heading>}
+        headerElement={
+          <Heading p="2">
+            <Link to="/">Hub One</Link>
+          </Heading>
+        }
         items={[
           {
             id: "picking",
