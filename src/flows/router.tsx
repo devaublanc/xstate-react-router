@@ -9,23 +9,26 @@ import { Heading } from "@chakra-ui/react";
 import PickingScanContainersScreen from "./picking/screens/PickingScanContainers";
 import { XStatePickingProvider } from "./picking/machines/XstatePickingMachineProvider";
 import { routes } from "./routes";
+import { SunIcon, TimeIcon } from "@chakra-ui/icons";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: (
       <BottomTabNavigation
-        headerElement={<Heading>Global Header</Heading>}
+        headerElement={<Heading p="2">Global Header</Heading>}
         items={[
           {
             id: "picking",
             path: routes.picking.idle,
             title: "Picking",
+            icon: <SunIcon />,
           },
           {
             id: "inbound",
             path: routes.inbound.idle,
             title: "Inbound",
+            icon: <TimeIcon />,
           },
         ]}
       />
