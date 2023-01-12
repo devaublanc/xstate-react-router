@@ -16,9 +16,9 @@ export type StackContext = {
 };
 
 export type StackNavigationProps = {
-  headerTitle?: string;
+  defaultHeaderTitle?: string;
   rootPath: string;
-  headerElement?: ReactElement;
+  defaultHeaderElement?: ReactElement;
 };
 
 export const StackContext = createContext<StackContext>({
@@ -27,46 +27,25 @@ export const StackContext = createContext<StackContext>({
 });
 
 export function StackNavigation({
-  headerTitle,
-  headerElement,
+  defaultHeaderTitle = "Stack",
+  defaultHeaderElement,
   rootPath,
 }: StackNavigationProps) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [headerTitleState, setHeaderTitleState] = useState(
-    headerTitle || "Stack"
-  );
+  const [headerTitle, setHeaderTitle] = useState(defaultHeaderTitle);
 
-  const defaultHeader = useMemo(() => {
-    return (
-      <Header
-        title={headerTitleState}
-        onGoBack={
-          // if current pathname === rootPath we are at the root level of the stack
-          // we should not display the go back arrow
-          rootPath !== location.pathname ? () => navigate(-1) : undefined
-        }
-      />
-    );
-  }, [location, rootPath, headerTitleState]);
-
-  const [headerElementState, setHeaderElementState] =
-    useState<ReactElement | null>(headerElement || defaultHeader);
-
-  // if location is updatated we should re evaluate if the default Header
-  useEffect(() => {
-    if (headerElement === undefined) {
-      setHeaderElementState(defaultHeader);
-    }
-  }, [location.pathname, headerElement]);
+  const [headerElement, setHeaderElement] = useState<
+    ReactElement | null | undefined
+  >(defaultHeaderElement);
 
   const values = useMemo(
     () => ({
-      setHeaderElement: setHeaderElementState,
-      setHeaderTitle: setHeaderTitleState,
+      setHeaderElement,
+      setHeaderTitle,
     }),
-    [setHeaderElementState, setHeaderTitleState, location.pathname]
+    [setHeaderElement, setHeaderTitle]
   );
 
   useEffect(() => {
@@ -80,7 +59,19 @@ export function StackNavigation({
   return (
     <StackContext.Provider value={values}>
       <Flex flexDir={"column"} flex={1} bg="red">
-        {headerElementState}
+        {headerElement ? (
+          headerElement
+        ) : (
+          <Header
+            title={headerTitle}
+            onGoBack={
+              // if current pathname === rootPath we are at the root level of the stack
+              // we should not display the go back arrow
+              rootPath !== location.pathname ? () => navigate(-1) : undefined
+            }
+          />
+        )}
+
         <Outlet />
       </Flex>
     </StackContext.Provider>

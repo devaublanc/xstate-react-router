@@ -42,7 +42,7 @@ export const router = createBrowserRouter([
           <XStatePickingProvider>
             <StackNavigation
               rootPath={routes.picking.idle}
-              headerTitle="Picking Stack"
+              defaultHeaderTitle="Picking Stack"
             />
           </XStatePickingProvider>
         ),
