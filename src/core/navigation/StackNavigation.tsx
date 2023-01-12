@@ -3,6 +3,7 @@ import {
   createContext,
   ReactElement,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -46,6 +47,10 @@ export function StackNavigation({
     }),
     [setHeaderElement, setHeaderTitle]
   );
+
+  useEffect(() => {
+    setHeaderTitle(defaultHeaderTitle);
+  }, [location.pathname]);
 
   return (
     <StackContext.Provider value={values}>
