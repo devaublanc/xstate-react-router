@@ -36,6 +36,7 @@ export const pickingMachine = createMachine(
           GO_TO_SCAN_ITEMS: {
             target: "scanningItems",
           },
+          GO_BACK: {},
         },
       },
       scanningItems: {
