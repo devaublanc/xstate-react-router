@@ -8,7 +8,6 @@ export default function PickingScanItemsScreen() {
   const { setHeaderTitle } = useStackContext();
 
   useEffect(() => {
-    console.log("asdasds");
     setHeaderTitle("Scan Items");
   }, []);
   return (

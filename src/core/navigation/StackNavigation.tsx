@@ -49,7 +49,7 @@ export function StackNavigation({
         }
       />
     );
-  }, [location]);
+  }, [location, rootPath, headerTitleState]);
 
   const [headerElementState, setHeaderElementState] =
     useState<ReactElement | null>(headerElement || defaultHeader);

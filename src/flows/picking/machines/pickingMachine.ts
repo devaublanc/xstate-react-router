@@ -1,5 +1,5 @@
 import { createMachine } from "xstate";
-import { wrongEventErrorHandlerFactory } from "../../../core/utils/xstate";
+
 import { routes } from "../../routes";
 
 import { PickingMachineContext, PickingMachineEvents } from "./types";
