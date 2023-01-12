@@ -27,7 +27,7 @@ export const StackContext = createContext<StackContext>({
 });
 
 export function StackNavigation({
-  defaultHeaderTitle = "Stack",
+  defaultHeaderTitle,
   defaultHeaderElement,
   rootPath,
 }: StackNavigationProps) {
@@ -48,9 +48,9 @@ export function StackNavigation({
     [setHeaderElement, setHeaderTitle]
   );
 
-  useEffect(() => {
-    setHeaderTitle(defaultHeaderTitle);
-  }, [location.pathname]);
+  // useEffect(() => {
+  //   setHeaderTitle(defaultHeaderTitle);
+  // }, [location.pathname]);
 
   return (
     <StackContext.Provider value={values}>

@@ -8,7 +8,7 @@ export default function PickingIdleScreen() {
   const pickingService = usePickingService();
 
   return (
-    <Page>
+    <>
       <Text fontSize={"xl"} fontWeight="bold">
         Picking Idle Screen
       </Text>
@@ -19,6 +19,6 @@ export default function PickingIdleScreen() {
       >
         Scan items
       </Button>
-    </Page>
+    </>
   );
 }

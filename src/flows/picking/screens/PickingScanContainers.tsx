@@ -7,13 +7,9 @@ import { Info } from "../components/Info";
 
 export default function PickingScanContainersScreen() {
   const pickingService = usePickingService();
-  const { setHeaderTitle } = useStackContext();
-  useEffect(() => {
-    setHeaderTitle("Scan containers");
-  }, []);
 
   return (
-    <Page>
+    <>
       <Text fontSize={"xl"} fontWeight="bold">
         Scan containers page
       </Text>
@@ -21,6 +17,6 @@ export default function PickingScanContainersScreen() {
       <Button mt="10" onClick={() => pickingService.send({ type: "FINISH" })}>
         Finish
       </Button>
-    </Page>
+    </>
   );
 }

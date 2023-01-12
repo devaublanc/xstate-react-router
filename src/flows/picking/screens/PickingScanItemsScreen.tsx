@@ -15,7 +15,7 @@ export default function PickingScanItemsScreen() {
     setHeaderTitle("Scan Items");
   }, []);
   return (
-    <Page>
+    <>
       <Text fontSize={"xl"} fontWeight="bold">
         Scan items page
       </Text>
@@ -26,6 +26,6 @@ export default function PickingScanItemsScreen() {
       >
         Scan containers
       </Button>
-    </Page>
+    </>
   );
 }

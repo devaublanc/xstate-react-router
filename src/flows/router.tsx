@@ -10,6 +10,7 @@ import PickingScanContainersScreen from "./picking/screens/PickingScanContainers
 import { XStatePickingProvider } from "./picking/machines/XstatePickingMachineProvider";
 import { routes } from "./routes";
 import { SunIcon, TimeIcon } from "@chakra-ui/icons";
+import { StackNavigationScreen } from "../core/navigation/StackNavigationScreen";
 
 export const router = createBrowserRouter([
   {
@@ -56,15 +57,27 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <PickingIdleScreen />,
+            element: (
+              <StackNavigationScreen headerTitle="Idle">
+                <PickingIdleScreen />
+              </StackNavigationScreen>
+            ),
           },
           {
             path: routes.picking.scanItems,
-            element: <PickingScanItemsScreen />,
+            element: (
+              <StackNavigationScreen headerTitle="Scan items">
+                <PickingScanItemsScreen />
+              </StackNavigationScreen>
+            ),
           },
           {
             path: routes.picking.scanContainers,
-            element: <PickingScanContainersScreen />,
+            element: (
+              <StackNavigationScreen headerTitle="Scan containers">
+                <PickingScanContainersScreen />
+              </StackNavigationScreen>
+            ),
           },
         ],
       },
