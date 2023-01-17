@@ -25,11 +25,9 @@ type CustomWrapper = ({ children }: { children: ReactElement }) => JSX.Element;
 type RecusiveNavigationObject =
   | {
       BottomTabNavigation: {
-        id: string;
         path: string;
         headerElement: ReactElement;
         tabs: {
-          id: string;
           path: string;
           title: string;
           content: RecusiveNavigationObject;
@@ -38,7 +36,6 @@ type RecusiveNavigationObject =
     }
   | {
       StackNavigation: {
-        id: string;
         path: string;
         defaultTitle: string;
         customWrapper?: CustomWrapper;
@@ -47,7 +44,6 @@ type RecusiveNavigationObject =
     }
   | {
       Screen: {
-        id: string;
         title: string;
         path: string;
         component: ReactElement;
@@ -56,7 +52,6 @@ type RecusiveNavigationObject =
 
 const myRouter: RecusiveNavigationObject = {
   BottomTabNavigation: {
-    id: "main",
     path: "/",
     headerElement: (
       <Heading p="2">
@@ -66,18 +61,15 @@ const myRouter: RecusiveNavigationObject = {
     tabs: [
       {
         title: "Inbound",
-        id: "InboundTab",
         path: "/inbound",
         content: {
           StackNavigation: {
-            id: "InboundStack",
             path: routes.inbound.root,
             defaultTitle: "Inbound Stack",
             screens: [
               {
                 Screen: {
                   path: routes.inbound.idle,
-                  id: "inboundIdleScreen",
                   title: "Inbound Idle Screen",
                   component: <InboundIdleScreen />,
                 },
@@ -85,7 +77,6 @@ const myRouter: RecusiveNavigationObject = {
               {
                 Screen: {
                   path: routes.inbound.preDropping,
-                  id: "inboundPreDroppingScreen",
                   title: "Inbound pre dropping screen",
                   component: <InboundPreDroppingScreen />,
                 },
@@ -93,7 +84,6 @@ const myRouter: RecusiveNavigationObject = {
               {
                 Screen: {
                   path: routes.inbound.dropping,
-                  id: "inboundDroppingScreen",
                   title: "Inbound dropping screen",
                   component: <InboundDroppingScreen />,
                 },
@@ -104,11 +94,9 @@ const myRouter: RecusiveNavigationObject = {
       },
       {
         title: "Picking",
-        id: "PickingTab",
         path: "/picking",
         content: {
           StackNavigation: {
-            id: "PickingStack",
             path: routes.picking.root,
             defaultTitle: "Picking Stack",
             customWrapper: ({ children }) => (
@@ -118,7 +106,7 @@ const myRouter: RecusiveNavigationObject = {
               {
                 Screen: {
                   path: routes.picking.idle,
-                  id: "pickingIdleScreen",
+
                   title: "Picking Idle Screen",
                   component: <PickingIdleScreen />,
                 },
@@ -126,7 +114,6 @@ const myRouter: RecusiveNavigationObject = {
               {
                 Screen: {
                   path: routes.picking.scanItems,
-                  id: "pickingScanItemsScreen",
                   title: "Picking Scan Items Screen",
                   component: <PickingScanItemsScreen />,
                 },
@@ -134,7 +121,7 @@ const myRouter: RecusiveNavigationObject = {
               {
                 Screen: {
                   path: routes.picking.scanContainers,
-                  id: "pickingScanContainersScreen",
+
                   title: "Picking Scan Containers Screen",
                   component: <PickingScanContainersScreen />,
                 },
@@ -144,13 +131,38 @@ const myRouter: RecusiveNavigationObject = {
         },
       },
       {
+        title: "Inventory",
+        path: "/inventory",
+        content: {
+          StackNavigation: {
+            defaultTitle: "Inventory",
+            path: routes.inventory.root,
+            screens: [
+              {
+                StackNavigation: {
+                  defaultTitle: "Stack navigation Stock checks",
+                  path: routes.inventory.stockChecks.root,
+                  screens: [
+                    {
+                      Screen: {
+                        title: "Stock check idle Screen",
+                        path: routes.inventory.stockChecks.idle,
+                        component: <InventoryStockCorrectionsIdleScreen />,
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+          },
+        },
+      },
+      {
         title: "Home",
-        id: "HomeTab",
         path: "/home",
         content: {
           Screen: {
             path: "/home",
-            id: "homeScreen",
             title: "Home Screen",
             component: <HomeScreen />,
           },
@@ -172,7 +184,6 @@ const recursiveToBrowserRouter = (
         <BottomTabNavigation
           headerElement={myRoutes.BottomTabNavigation.headerElement}
           items={myRoutes.BottomTabNavigation.tabs.map(tab => ({
-            id: tab.id,
             icon: <SearchIcon />,
             path: tab.path,
             title: tab.title,
@@ -218,184 +229,5 @@ const recursiveToBrowserRouter = (
 };
 
 const generatedRoute = recursiveToBrowserRouter(myRouter);
-
-// export const router = createBrowserRouter([generatedRoute]);
-const expected = {
-  path: "/",
-
-  element: (
-    <BottomTabNavigation
-      headerElement={
-        <Heading p="2">
-          <Link to="/">Hub One</Link>
-        </Heading>
-      }
-      items={[
-        {
-          id: "home",
-          path: routes.root,
-          title: "Home",
-          icon: <SearchIcon />,
-        },
-        {
-          id: "picking",
-          path: routes.picking.idle,
-          title: "PickingStack driven by XState",
-          icon: <SunIcon />,
-        },
-        {
-          id: "inbound",
-          path: routes.inbound.root,
-          title: "InboundStack driven by React Router",
-          icon: <TimeIcon />,
-        },
-        {
-          id: "inventory",
-          path: routes.inventory.root,
-          title: "InventoryStack driven by React Router then Xstate",
-          icon: <TimeIcon />,
-        },
-      ]}
-    />
-  ),
-
-  children: [
-    {
-      index: true,
-      element: <HomeScreen />,
-    },
-    // INBOUND
-    {
-      path: routes.inbound.root,
-      element: (
-        <StackNavigation
-          rootPath={routes.inbound.root}
-          defaultHeaderTitle="Inbound Stack"
-        />
-      ),
-      children: [
-        {
-          index: true,
-          element: (
-            <StackNavigationScreen headerTitle="Idle">
-              <InboundIdleScreen />
-            </StackNavigationScreen>
-          ),
-        },
-        {
-          path: routes.inbound.preDropping,
-          element: (
-            <StackNavigationScreen headerTitle="Pre dropping">
-              <InboundPreDroppingScreen />
-            </StackNavigationScreen>
-          ),
-        },
-        {
-          path: routes.inbound.dropping,
-          element: (
-            <StackNavigationScreen headerTitle="Dropping">
-              <InboundDroppingScreen />
-            </StackNavigationScreen>
-          ),
-        },
-      ],
-    },
-    // PICKING
-    {
-      path: routes.picking.idle,
-      element: (
-        <XStatePickingProvider>
-          <StackNavigation
-            rootPath={routes.picking.idle}
-            defaultHeaderTitle="Picking Stack"
-          />
-        </XStatePickingProvider>
-      ),
-      children: [
-        {
-          index: true,
-          element: (
-            <StackNavigationScreen headerTitle="Idle">
-              <PickingIdleScreen />
-            </StackNavigationScreen>
-          ),
-        },
-        {
-          path: routes.picking.scanItems,
-          element: (
-            <StackNavigationScreen headerTitle="Scan items">
-              <PickingScanItemsScreen />
-            </StackNavigationScreen>
-          ),
-        },
-        {
-          path: routes.picking.scanContainers,
-          element: (
-            <StackNavigationScreen headerTitle="Scan containers">
-              <PickingScanContainersScreen />
-            </StackNavigationScreen>
-          ),
-        },
-      ],
-    },
-    // INVENTORY
-    {
-      path: routes.inventory.root,
-      element: (
-        <StackNavigation
-          rootPath={routes.inventory.root}
-          defaultHeaderTitle="Inventory Stack"
-        />
-      ),
-      children: [
-        {
-          index: true,
-          element: (
-            <StackNavigationScreen headerTitle="Inventory">
-              <InventoryIndexScreen />
-            </StackNavigationScreen>
-          ),
-        },
-        {
-          path: routes.inventory.stockChecks.root,
-          element: (
-            <StackNavigationScreen headerTitle="Stock checks idle">
-              <InventoryStockChecksIdleScreen />
-            </StackNavigationScreen>
-          ),
-        },
-        {
-          path: routes.inventory.stockCorrections.root,
-          element: (
-            <StackNavigation
-              rootPath={routes.inventory.stockCorrections.root}
-              defaultHeaderTitle="Inventory Stack"
-            />
-          ),
-          children: [
-            {
-              index: true,
-              element: (
-                <StackNavigationScreen headerTitle="Stock corrections idle">
-                  <InventoryStockCorrectionsIdleScreen />
-                </StackNavigationScreen>
-              ),
-            },
-            {
-              path: routes.inventory.stockCorrections.searchResult,
-              element: (
-                <StackNavigationScreen headerTitle="Stock corrections search result">
-                  <InventoryStockCorrectionsSearchResultScreen />
-                </StackNavigationScreen>
-              ),
-            },
-          ],
-        },
-      ],
-    },
-  ],
-};
-
-console.log({ generatedRoute, expected });
 
 export const router = createBrowserRouter([generatedRoute]);

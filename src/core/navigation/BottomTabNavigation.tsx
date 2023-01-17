@@ -7,7 +7,6 @@ export type BottomTabContext = {};
 export type BottomTabProps = {
   headerElement?: ReactElement;
   items: {
-    id: string;
     title: string;
     path: string;
     icon: ReactElement;
@@ -34,7 +33,7 @@ export function BottomTabNavigation({ items, headerElement }: BottomTabProps) {
         {isVisible && (
           <Flex justify={"space-around"} p="2">
             {items.map(item => (
-              <NavLink to={item.path} key={item.id}>
+              <NavLink to={item.path} key={item.path + item.title}>
                 <Flex align={"center"} gap={1} fontSize="12px">
                   {item.icon} <Text>{item.title}</Text>
                 </Flex>
