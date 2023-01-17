@@ -26,7 +26,7 @@ import InventoryStockCorrectionsIdleScreen from "./Inventory/screens/stockCorrec
 import InventoryStockCorrectionsSearchResultScreen from "./Inventory/screens/stockCorrections/InventoryStockCorrectionsSearchResultScreen";
 import { ReactElement } from "react";
 
-type RecursiveDObject =
+type RecusiveNavigationObject =
   | {
       BottomTabNavigation: {
         id: string;
@@ -36,7 +36,7 @@ type RecursiveDObject =
           id: string;
           path: string;
           title: string;
-          content: RecursiveDObject;
+          content: RecusiveNavigationObject;
         }[];
       };
     }
@@ -45,7 +45,7 @@ type RecursiveDObject =
         id: string;
         path: string;
         defaultTitle: string;
-        screens: RecursiveDObject[];
+        screens: RecusiveNavigationObject[];
       };
     }
   | {
@@ -56,43 +56,8 @@ type RecursiveDObject =
         component: ReactElement;
       };
     };
-//   let routes = []
-//   if ("BottomTabNavigation" in object) {
-//     return (
-//       <BottomTabNavigation
-//         headerElement={
-//           <Heading p="2">
-//             <Link to={object.BottomTabNavigation.path}>
-//               {object.BottomTabNavigation.id}
-//             </Link>
-//           </Heading>
-//         }
-//         items={object.BottomTabNavigation.tabs.map(tab =>
-//           recursiveToBrowserRouter(tab)
-//         )}
-//       />
-//     );
-//   } else if ("StackNavigation" in object) {
-//     return (
-//       <StackNavigation
-//         defaultHeaderTitle={object.StackNavigation.defaultTitle}
-//         items={object.StackNavigation.screens.map(screen =>
-//           recursiveToBrowserRouter(screen)
-//         )}
-//       />
-//     );
-//   } else if ("Screen" in object) {
-//     return (
-//       <StackNavigationScreen headerTitle={object.Screen.title}>
-//         {object.Screen.component}
-//       </StackNavigationScreen>
-//     );
-//   } else {
-//     throw new Error("Unrecognized object");
-//   }
-// };
 
-const myRouter: RecursiveDObject = {
+const myRouter: RecusiveNavigationObject = {
   BottomTabNavigation: {
     id: "main",
     path: "/",
@@ -157,7 +122,9 @@ const myRouter: RecursiveDObject = {
   },
 };
 
-const recursiveToBrowserRouter = (myRoutes: RecursiveDObject): RouteObject => {
+const recursiveToBrowserRouter = (
+  myRoutes: RecusiveNavigationObject
+): RouteObject => {
   let result: RouteObject = {};
 
   if ("BottomTabNavigation" in myRoutes) {
