@@ -1,5 +1,6 @@
 import { Tag } from "@chakra-ui/react";
 import { useSelector } from "@xstate/react";
+
 import { usePickingService } from "../machines/XstatePickingMachineProvider";
 
 export function Info() {

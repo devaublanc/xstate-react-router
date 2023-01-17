@@ -11,10 +11,18 @@ import { XStatePickingProvider } from "./picking/machines/XstatePickingMachinePr
 import { routes } from "./routes";
 import { SearchIcon, SunIcon, TimeIcon } from "@chakra-ui/icons";
 import { StackNavigationScreen } from "../core/navigation/StackNavigationScreen";
+import InboundIdleScreen from "./inbound/screens/InboundIdleScreen";
+import InboundPreDroppingScreen from "./inbound/screens/InboundPreDroppingScreen";
+import InboundDroppingScreen from "./inbound/screens/InboundDroppingScreen";
+import InventoryIndexScreen from "./Inventory/screens/InventoryIndexScreen";
+import InventoryStockChecksIdleScreen from "./Inventory/screens/stockChecks/InventoryStockChecksIdleScreen";
+import InventoryStockCorrectionsIdleScreen from "./Inventory/screens/stockCorrections/InventoryStockCorrectionsIdleScreen";
+import InventoryStockCorrectionsSearchResultScreen from "./Inventory/screens/stockCorrections/InventoryStockCorrectionsSearchResultScreen";
 
 export const router = createBrowserRouter([
   {
     path: "/",
+
     element: (
       <BottomTabNavigation
         headerElement={
@@ -37,19 +45,62 @@ export const router = createBrowserRouter([
           },
           {
             id: "inbound",
-            path: routes.inbound.idle,
-            title: "Inbound",
+            path: routes.inbound.root,
+            title: "InboundStack driven by React Router",
+            icon: <TimeIcon />,
+          },
+          {
+            id: "inventory",
+            path: routes.inventory.root,
+            title: "InventoryStack driven by React Router then Xstate",
             icon: <TimeIcon />,
           },
         ]}
       />
     ),
-    errorElement: <ErrorScreen />,
+
     children: [
       {
         index: true,
         element: <HomeScreen />,
       },
+      // INBOUND
+      {
+        path: routes.inbound.root,
+        element: (
+          <StackNavigation
+            rootPath={routes.inbound.root}
+            defaultHeaderTitle="Inbound Stack"
+          />
+        ),
+        children: [
+          {
+            index: true,
+            element: (
+              <StackNavigationScreen headerTitle="Idle">
+                <InboundIdleScreen />
+              </StackNavigationScreen>
+            ),
+          },
+          {
+            path: routes.inbound.preDropping,
+            element: (
+              <StackNavigationScreen headerTitle="Pre dropping">
+                <InboundPreDroppingScreen />
+              </StackNavigationScreen>
+            ),
+          },
+          {
+            path: routes.inbound.dropping,
+            element: (
+              <StackNavigationScreen headerTitle="Dropping">
+                <InboundDroppingScreen />
+              </StackNavigationScreen>
+            ),
+          },
+        ],
+      },
+      // PICKING
       {
         path: routes.picking.idle,
         element: (
@@ -87,6 +138,62 @@ export const router = createBrowserRouter([
           },
         ],
       },
+      // INVENTORY
+      {
+        path: routes.inventory.root,
+        element: (
+          <StackNavigation
+            rootPath={routes.inventory.root}
+            defaultHeaderTitle="Inventory Stack"
+          />
+        ),
+        children: [
+          {
+            index: true,
+            element: (
+              <StackNavigationScreen headerTitle="Inventory">
+                <InventoryIndexScreen />
+              </StackNavigationScreen>
+            ),
+          },
+          {
+            path: routes.inventory.stockChecks.root,
+            element: (
+              <StackNavigationScreen headerTitle="Stock checks idle">
+                <InventoryStockChecksIdleScreen />
+              </StackNavigationScreen>
+            ),
+          },
+          {
+            path: routes.inventory.stockCorrections.root,
+            element: (
+              <StackNavigation
+                rootPath={routes.inventory.stockCorrections.root}
+                defaultHeaderTitle="Inventory Stack"
+              />
+            ),
+            children: [
+              {
+                index: true,
+                element: (
+                  <StackNavigationScreen headerTitle="Stock corrections idle">
+                    <InventoryStockCorrectionsIdleScreen />
+                  </StackNavigationScreen>
+                ),
+              },
+              {
+                path: routes.inventory.stockCorrections.searchResult,
+                element: (
+                  <StackNavigationScreen headerTitle="Stock corrections search result">
+                    <InventoryStockCorrectionsSearchResultScreen />
+                  </StackNavigationScreen>
+                ),
+              },
+            ],
+          },
+        ],
+      },
     ],
+    errorElement: <ErrorScreen />,
   },
 ]);

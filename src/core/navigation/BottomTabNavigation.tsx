@@ -1,6 +1,6 @@
 import { Box, Flex, Text } from "@chakra-ui/react";
 import { createContext, ReactElement, useContext, useMemo } from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 
 export type BottomTabContext = {};
 
@@ -34,11 +34,11 @@ export function BottomTabNavigation({ items, headerElement }: BottomTabProps) {
         {isVisible && (
           <Flex justify={"space-around"} p="2">
             {items.map(item => (
-              <Link to={item.path} key={item.id}>
-                <Flex align={"center"} gap={1}>
+              <NavLink to={item.path} key={item.id}>
+                <Flex align={"center"} gap={1} fontSize="12px">
                   {item.icon} <Text>{item.title}</Text>
                 </Flex>
-              </Link>
+              </NavLink>
             ))}
           </Flex>
         )}
