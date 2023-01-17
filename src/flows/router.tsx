@@ -137,9 +137,13 @@ const myRouter: RecusiveNavigationObject = {
           StackNavigation: {
             defaultTitle: "Inventory",
             path: routes.inventory.root,
-            customWrapper: ({ children }) => <div>asadas {children}</div>,
             screens: [
               {
+                Screen: {
+                  title: "Inventory index",
+                  path: routes.inventory.root,
+                  component: <InventoryIndexScreen />,
+                },
                 StackNavigation: {
                   defaultTitle: "Stack navigation Stock checks",
                   path: routes.inventory.stockChecks.root,
