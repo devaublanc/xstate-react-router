@@ -4,7 +4,9 @@ import { usePickingService } from "../machines/XstatePickingMachineProvider";
 
 export function Info() {
   const pickingService = usePickingService();
-  const stateValue = useSelector(pickingService, state => state.value);
+  const stateValue = useSelector(pickingService, state =>
+    JSON.stringify(state.value)
+  );
   return (
     <Tag variant={"solid"} colorScheme="teal">
       State: {stateValue.toString()}

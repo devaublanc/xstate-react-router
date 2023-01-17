@@ -15,6 +15,18 @@ export default function PickingIdleScreen() {
       <Info />
       <Button
         mt="10"
+        onClick={() => pickingService.send({ type: "GO_TO_TEST" })}
+      >
+        GO TO TEST STATE
+      </Button>
+      <Button
+        mt="10"
+        onClick={() => pickingService.send({ type: "GO_TO_IDLE_SUBSTATE" })}
+      >
+        Idle SubState
+      </Button>
+      <Button
+        mt="10"
         onClick={() => pickingService.send({ type: "GO_TO_SCAN_ITEMS" })}
       >
         Scan items

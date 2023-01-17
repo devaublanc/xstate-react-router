@@ -29,8 +29,14 @@ export function XStatePickingProvider({
     },
     state => {
       // synchonize react router with Xstate
+      const hasNestedSubstate = Object.keys(state.value)[0] === "0";
+      const metaKey = hasNestedSubstate
+        ? state.value
+        : Object.keys(state.value)[0];
+
       const routeFromXState: string | undefined =
-        state.meta[`${PICKING_MACHINE_ID}.${state.value}`]?.route;
+        state.meta[`${PICKING_MACHINE_ID}.${metaKey}`]?.route;
+
       if (routeFromXState && routeFromXState !== location.pathname) {
         navigate(routeFromXState);
       }
