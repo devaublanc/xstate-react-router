@@ -103,37 +103,37 @@ const myRouter: RecursiveDObject = {
     ),
     tabs: [
       {
-        title: "Picking",
-        id: "PickingTab",
-        path: "/picking",
+        title: "Inbound",
+        id: "InboundTab",
+        path: "/inbound",
         content: {
           StackNavigation: {
-            id: "pickingTab",
-            path: routes.picking.root,
-            defaultTitle: "Picking Stack",
+            id: "InboundStack",
+            path: routes.inbound.root,
+            defaultTitle: "Inbound Stack",
             screens: [
               {
                 Screen: {
-                  path: routes.picking.idle,
+                  path: routes.inbound.idle,
                   id: "pickingIdleScreen",
                   title: "Picking Idle Screen",
-                  component: <PickingIdleScreen />,
+                  component: <InboundIdleScreen />,
                 },
               },
               {
                 Screen: {
-                  path: routes.picking.scanItems,
-                  id: "pickingScanItemsScreen",
-                  title: "Picking Scan Items Screen",
-                  component: <PickingScanItemsScreen />,
+                  path: routes.inbound.preDropping,
+                  id: "inboundPreDroppingScreen",
+                  title: "Inbound pre dropping screen",
+                  component: <InboundPreDroppingScreen />,
                 },
               },
               {
                 Screen: {
-                  path: routes.picking.scanContainers,
-                  id: "pickingScanContainersScreen",
-                  title: "Picking Scan Containers Screen",
-                  component: <PickingScanContainersScreen />,
+                  path: routes.inbound.dropping,
+                  id: "inboundDroppingScreen",
+                  title: "Inbound dropping screen",
+                  component: <InboundDroppingScreen />,
                 },
               },
             ],
