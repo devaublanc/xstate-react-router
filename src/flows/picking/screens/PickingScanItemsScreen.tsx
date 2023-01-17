@@ -14,6 +14,7 @@ export default function PickingScanItemsScreen() {
   useEffect(() => {
     setHeaderTitle("Scan Items");
   }, []);
+
   return (
     <>
       <Text fontSize={"xl"} fontWeight="bold">

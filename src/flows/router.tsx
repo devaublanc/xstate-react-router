@@ -1,10 +1,4 @@
-import {
-  createBrowserRouter,
-  Link,
-  BrowserRouter,
-  RouteObject,
-  Route,
-} from "react-router-dom";
+import { createBrowserRouter, Link, RouteObject } from "react-router-dom";
 import ErrorScreen from "./error/ErrorScreen";
 import { StackNavigation } from "../core/navigation/StackNavigation";
 import HomeScreen from "./home/HomeScreen";
@@ -26,6 +20,8 @@ import InventoryStockCorrectionsIdleScreen from "./Inventory/screens/stockCorrec
 import InventoryStockCorrectionsSearchResultScreen from "./Inventory/screens/stockCorrections/InventoryStockCorrectionsSearchResultScreen";
 import { ReactElement } from "react";
 
+type CustomWrapper = ({ children }: { children: ReactElement }) => JSX.Element;
+
 type RecusiveNavigationObject =
   | {
       BottomTabNavigation: {
@@ -45,6 +41,7 @@ type RecusiveNavigationObject =
         id: string;
         path: string;
         defaultTitle: string;
+        customWrapper?: CustomWrapper;
         screens: RecusiveNavigationObject[];
       };
     }
@@ -80,8 +77,8 @@ const myRouter: RecusiveNavigationObject = {
               {
                 Screen: {
                   path: routes.inbound.idle,
-                  id: "pickingIdleScreen",
-                  title: "Picking Idle Screen",
+                  id: "inboundIdleScreen",
+                  title: "Inbound Idle Screen",
                   component: <InboundIdleScreen />,
                 },
               },
@@ -99,6 +96,47 @@ const myRouter: RecusiveNavigationObject = {
                   id: "inboundDroppingScreen",
                   title: "Inbound dropping screen",
                   component: <InboundDroppingScreen />,
+                },
+              },
+            ],
+          },
+        },
+      },
+      {
+        title: "Picking",
+        id: "PickingTab",
+        path: "/picking",
+        content: {
+          StackNavigation: {
+            id: "PickingStack",
+            path: routes.picking.root,
+            defaultTitle: "Picking Stack",
+            customWrapper: ({ children }) => (
+              <XStatePickingProvider>{children}</XStatePickingProvider>
+            ),
+            screens: [
+              {
+                Screen: {
+                  path: routes.picking.idle,
+                  id: "pickingIdleScreen",
+                  title: "Picking Idle Screen",
+                  component: <PickingIdleScreen />,
+                },
+              },
+              {
+                Screen: {
+                  path: routes.picking.scanItems,
+                  id: "pickingScanItemsScreen",
+                  title: "Picking Scan Items Screen",
+                  component: <PickingScanItemsScreen />,
+                },
+              },
+              {
+                Screen: {
+                  path: routes.picking.scanContainers,
+                  id: "pickingScanContainersScreen",
+                  title: "Picking Scan Containers Screen",
+                  component: <PickingScanContainersScreen />,
                 },
               },
             ],
@@ -148,14 +186,17 @@ const recursiveToBrowserRouter = (
   }
 
   if ("StackNavigation" in myRoutes) {
+    const stack = (
+      <StackNavigation
+        rootPath={myRoutes.StackNavigation.path}
+        defaultHeaderTitle={myRoutes.StackNavigation.defaultTitle}
+      />
+    );
     result = {
       path: myRoutes.StackNavigation.path,
-      element: (
-        <StackNavigation
-          rootPath={myRoutes.StackNavigation.path}
-          defaultHeaderTitle={myRoutes.StackNavigation.defaultTitle}
-        />
-      ),
+      element: myRoutes.StackNavigation.customWrapper
+        ? myRoutes.StackNavigation.customWrapper({ children: stack })
+        : stack,
       children: myRoutes.StackNavigation.screens.map(screen =>
         recursiveToBrowserRouter(screen)
       ),
