@@ -137,6 +137,7 @@ const myRouter: RecusiveNavigationObject = {
           StackNavigation: {
             defaultTitle: "Inventory",
             path: routes.inventory.root,
+            customWrapper: ({ children }) => <div>asadas {children}</div>,
             screens: [
               {
                 StackNavigation: {
@@ -147,6 +148,21 @@ const myRouter: RecusiveNavigationObject = {
                       Screen: {
                         title: "Stock check idle Screen",
                         path: routes.inventory.stockChecks.idle,
+                        component: <InventoryStockChecksIdleScreen />,
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                StackNavigation: {
+                  defaultTitle: "Stack navigation Stock corrections",
+                  path: routes.inventory.stockCorrections.root,
+                  screens: [
+                    {
+                      Screen: {
+                        title: "Stock corrections idle Screen",
+                        path: routes.inventory.stockCorrections.idle,
                         component: <InventoryStockCorrectionsIdleScreen />,
                       },
                     },
