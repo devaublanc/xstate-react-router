@@ -5,7 +5,7 @@ import { routes } from "../../../routes";
 export default function InventoryStockCorrectionsSearchResultScreen() {
   return (
     <>
-      <Text fontSize={"xl"} fontWeight="bold">
+      <Text fontSize={"xl"} textAlign="center" fontWeight="bold">
         Inventory Stock corrections Search result
       </Text>
       <Link to={routes.inventory.stockCorrections.root} replace={true}>

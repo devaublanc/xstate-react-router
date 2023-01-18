@@ -157,6 +157,15 @@ const myRouter: RecusiveNavigationObject = {
                         component: <InventoryStockCorrectionsIdleScreen />,
                       },
                     },
+                    {
+                      Screen: {
+                        title: "Stock corrections Search result Screen",
+                        path: routes.inventory.stockCorrections.searchResult,
+                        component: (
+                          <InventoryStockCorrectionsSearchResultScreen />
+                        ),
+                      },
+                    },
                   ],
                 },
               },
