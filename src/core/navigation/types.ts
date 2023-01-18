@@ -22,7 +22,8 @@ export type RecusiveNavigationObject =
   | {
       StackNavigation: {
         path: string;
-        defaultTitle: string;
+        defaultTitle?: string;
+        defaultHeaderElement?: ReactElement | null;
         customWrapper?: CustomWrapper;
         screens: RecusiveNavigationObject[];
       };

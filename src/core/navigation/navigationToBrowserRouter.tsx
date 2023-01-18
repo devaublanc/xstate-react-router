@@ -33,6 +33,7 @@ export const navigationToBrowserRouter = (
       <StackNavigation
         rootPath={myRoutes.StackNavigation.path}
         defaultHeaderTitle={myRoutes.StackNavigation.defaultTitle}
+        defaultHeaderElement={myRoutes.StackNavigation.defaultHeaderElement}
       />
     );
     result = {

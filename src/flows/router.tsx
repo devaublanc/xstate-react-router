@@ -123,12 +123,11 @@ const myRouter: RecusiveNavigationObject = {
         icon: <TimeIcon />,
         content: {
           StackNavigation: {
-            defaultTitle: "Inventory Stack",
+            defaultHeaderElement: null,
             path: routes.inventory.root,
             screens: [
               {
                 Screen: {
-                  title: "Inventory Index Screen",
                   path: routes.inventory.root,
                   component: <InventoryIndexScreen />,
                 },

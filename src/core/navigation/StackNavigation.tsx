@@ -12,14 +12,14 @@ import { Header } from "../ui/Header";
 export type StackContext = {
   setHeaderElement: (header: ReactElement) => void;
   setHeaderTitle: (title: string) => void;
-  defaultHeaderElement?: ReactElement;
+  defaultHeaderElement?: ReactElement | null;
   defaultHeaderTitle?: string;
 };
 
 export type StackNavigationProps = {
   defaultHeaderTitle?: string;
   rootPath: string;
-  defaultHeaderElement?: ReactElement;
+  defaultHeaderElement?: ReactElement | null;
 };
 
 export const StackContext = createContext<StackContext>({
@@ -51,10 +51,12 @@ export function StackNavigation({
     [setHeaderElement, setHeaderTitle, defaultHeaderTitle, defaultHeaderElement]
   );
 
+  console.log({ headerElement });
+
   return (
     <StackContext.Provider value={values}>
       <Flex flexDir={"column"} flex={1} bg="red">
-        {headerElement ? (
+        {headerElement !== undefined ? (
           headerElement
         ) : (
           <Header
