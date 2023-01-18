@@ -10,7 +10,6 @@ import PickingScanContainersScreen from "./picking/screens/PickingScanContainers
 import { XStatePickingProvider } from "./picking/machines/XstatePickingMachineProvider";
 import { routes } from "./routes";
 import { SearchIcon, SunIcon, TimeIcon } from "@chakra-ui/icons";
-import { StackNavigationScreen } from "../core/navigation/StackNavigationScreen";
 import InboundIdleScreen from "./inbound/screens/InboundIdleScreen";
 import InboundPreDroppingScreen from "./inbound/screens/InboundPreDroppingScreen";
 import InboundDroppingScreen from "./inbound/screens/InboundDroppingScreen";
@@ -18,7 +17,6 @@ import InventoryIndexScreen from "./Inventory/screens/InventoryIndexScreen";
 import InventoryStockChecksIdleScreen from "./Inventory/screens/stockChecks/InventoryStockChecksIdleScreen";
 import InventoryStockCorrectionsIdleScreen from "./Inventory/screens/stockCorrections/InventoryStockCorrectionsIdleScreen";
 import InventoryStockCorrectionsSearchResultScreen from "./Inventory/screens/stockCorrections/InventoryStockCorrectionsSearchResultScreen";
-import { ReactElement } from "react";
 import { RecusiveNavigationObject } from "../core/navigation/types";
 import { navigationToBrowserRouter } from "../core/navigation/navigationToBrowserRouter";
 import InventoryStockChecksDetailScreen from "./Inventory/screens/stockChecks/InventoryStockChecksDetailScreen";
@@ -34,11 +32,11 @@ const myRouter: RecusiveNavigationObject = {
     tabs: [
       {
         title: "Home",
-        path: "/home",
+        path: "/",
         icon: <SearchIcon />,
         content: {
           Screen: {
-            path: "/home",
+            path: "/",
             title: "Home Screen",
             component: <HomeScreen />,
           },

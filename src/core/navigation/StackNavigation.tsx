@@ -51,8 +51,6 @@ export function StackNavigation({
     [setHeaderElement, setHeaderTitle, defaultHeaderTitle, defaultHeaderElement]
   );
 
-  console.log({ headerElement });
-
   return (
     <StackContext.Provider value={values}>
       <Flex flexDir={"column"} flex={1} bg="red">

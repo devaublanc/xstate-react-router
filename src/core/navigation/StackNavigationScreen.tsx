@@ -20,7 +20,6 @@ export function StackNavigationScreen({
 }: StackNavigationScreenProps) {
   const { setHeaderTitle, defaultHeaderTitle } = useStackContext();
   useEffect(() => {
-    // console.log(location.pathname === rootPath);
     if (headerTitle) {
       setHeaderTitle(headerTitle);
     } else if (defaultHeaderTitle) {
