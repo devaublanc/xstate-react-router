@@ -29,7 +29,7 @@ export type RecusiveNavigationObject =
     }
   | {
       Screen: {
-        title: string;
+        title?: string;
         path: string;
         component: ReactElement;
       };

@@ -20,6 +20,7 @@ import InventoryStockCorrectionsIdleScreen from "./Inventory/screens/stockCorrec
 import InventoryStockCorrectionsSearchResultScreen from "./Inventory/screens/stockCorrections/InventoryStockCorrectionsSearchResultScreen";
 import { ReactElement } from "react";
 import { RecusiveNavigationObject } from "../core/navigation/types";
+import { navigationToBrowserRouter } from "../core/navigation/navigationToBrowserRouter";
 
 const myRouter: RecusiveNavigationObject = {
   BottomTabNavigation: {
@@ -54,7 +55,7 @@ const myRouter: RecusiveNavigationObject = {
               {
                 Screen: {
                   path: routes.inbound.root,
-                  title: "Inbound Idle Screen",
+                  // title: "Inbound Idle Screen",
                   component: <InboundIdleScreen />,
                 },
               },
@@ -167,62 +168,6 @@ const myRouter: RecusiveNavigationObject = {
   },
 };
 
-const recursiveToBrowserRouter = (
-  myRoutes: RecusiveNavigationObject
-): RouteObject => {
-  let result: RouteObject = {};
-
-  if ("BottomTabNavigation" in myRoutes) {
-    result = {
-      path: myRoutes.BottomTabNavigation.path,
-      element: (
-        <BottomTabNavigation
-          headerElement={myRoutes.BottomTabNavigation.headerElement}
-          items={myRoutes.BottomTabNavigation.tabs.map(tab => ({
-            icon: tab.icon,
-            path: tab.path,
-            title: tab.title,
-          }))}
-        />
-      ),
-      children: myRoutes.BottomTabNavigation.tabs.map(({ content }) =>
-        recursiveToBrowserRouter(content)
-      ),
-    };
-  }
-
-  if ("StackNavigation" in myRoutes) {
-    const stack = (
-      <StackNavigation
-        rootPath={myRoutes.StackNavigation.path}
-        defaultHeaderTitle={myRoutes.StackNavigation.defaultTitle}
-      />
-    );
-    result = {
-      path: myRoutes.StackNavigation.path,
-      element: myRoutes.StackNavigation.customWrapper
-        ? myRoutes.StackNavigation.customWrapper({ children: stack })
-        : stack,
-      children: myRoutes.StackNavigation.screens.map(screen =>
-        recursiveToBrowserRouter(screen)
-      ),
-    };
-  }
-
-  if ("Screen" in myRoutes) {
-    result = {
-      path: myRoutes.Screen.path,
-      element: (
-        <StackNavigationScreen headerTitle={myRoutes.Screen.title}>
-          {myRoutes.Screen.component}
-        </StackNavigationScreen>
-      ),
-    };
-  }
-
-  return result;
-};
-
-const generatedRoute = recursiveToBrowserRouter(myRouter);
+const generatedRoute = navigationToBrowserRouter(myRouter);
 
 export const router = createBrowserRouter([generatedRoute]);
