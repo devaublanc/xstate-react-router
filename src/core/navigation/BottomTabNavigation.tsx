@@ -31,7 +31,12 @@ export function BottomTabNavigation({ items, headerElement }: BottomTabProps) {
           <Outlet />
         </Flex>
         {isVisible && (
-          <Flex justify={"space-around"} p="2">
+          <Flex
+            justify={"space-around"}
+            p="2"
+            borderTopColor={"gray"}
+            borderTopWidth={1}
+          >
             {items.map(item => (
               <NavLink to={item.path} key={item.path + item.title}>
                 <Flex align={"center"} gap={1} fontSize="12px">

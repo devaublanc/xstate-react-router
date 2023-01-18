@@ -30,6 +30,7 @@ type RecusiveNavigationObject =
         tabs: {
           path: string;
           title: string;
+          icon: ReactElement;
           content: RecusiveNavigationObject;
         }[];
       };
@@ -60,8 +61,21 @@ const myRouter: RecusiveNavigationObject = {
     ),
     tabs: [
       {
+        title: "Home",
+        path: "/home",
+        icon: <SearchIcon />,
+        content: {
+          Screen: {
+            path: "/home",
+            title: "Home Screen",
+            component: <HomeScreen />,
+          },
+        },
+      },
+      {
         title: "Inbound",
         path: "/inbound",
+        icon: <TimeIcon />,
         content: {
           StackNavigation: {
             path: routes.inbound.root,
@@ -95,6 +109,7 @@ const myRouter: RecusiveNavigationObject = {
       {
         title: "Picking",
         path: "/picking",
+        icon: <SunIcon />,
         content: {
           StackNavigation: {
             path: routes.picking.root,
@@ -133,6 +148,7 @@ const myRouter: RecusiveNavigationObject = {
       {
         title: "Inventory",
         path: "/inventory",
+        icon: <TimeIcon />,
         content: {
           StackNavigation: {
             defaultTitle: "Inventory",
@@ -177,17 +193,6 @@ const myRouter: RecusiveNavigationObject = {
           },
         },
       },
-      {
-        title: "Home",
-        path: "/home",
-        content: {
-          Screen: {
-            path: "/home",
-            title: "Home Screen",
-            component: <HomeScreen />,
-          },
-        },
-      },
     ],
   },
 };
@@ -204,7 +209,7 @@ const recursiveToBrowserRouter = (
         <BottomTabNavigation
           headerElement={myRoutes.BottomTabNavigation.headerElement}
           items={myRoutes.BottomTabNavigation.tabs.map(tab => ({
-            icon: <SearchIcon />,
+            icon: tab.icon,
             path: tab.path,
             title: tab.title,
           }))}
