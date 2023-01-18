@@ -34,7 +34,7 @@ export const pickingMachine = createMachine(
           idleSubstateFoo: {},
         },
         meta: {
-          route: routes.picking.idle,
+          route: routes.picking.root,
         },
         on: {
           GO_TO_SCAN_ITEMS: {

@@ -19,37 +19,7 @@ import InventoryStockChecksIdleScreen from "./Inventory/screens/stockChecks/Inve
 import InventoryStockCorrectionsIdleScreen from "./Inventory/screens/stockCorrections/InventoryStockCorrectionsIdleScreen";
 import InventoryStockCorrectionsSearchResultScreen from "./Inventory/screens/stockCorrections/InventoryStockCorrectionsSearchResultScreen";
 import { ReactElement } from "react";
-
-type CustomWrapper = ({ children }: { children: ReactElement }) => JSX.Element;
-
-type RecusiveNavigationObject =
-  | {
-      BottomTabNavigation: {
-        path: string;
-        headerElement: ReactElement;
-        tabs: {
-          path: string;
-          title: string;
-          icon: ReactElement;
-          content: RecusiveNavigationObject;
-        }[];
-      };
-    }
-  | {
-      StackNavigation: {
-        path: string;
-        defaultTitle: string;
-        customWrapper?: CustomWrapper;
-        screens: RecusiveNavigationObject[];
-      };
-    }
-  | {
-      Screen: {
-        title: string;
-        path: string;
-        component: ReactElement;
-      };
-    };
+import { RecusiveNavigationObject } from "../core/navigation/types";
 
 const myRouter: RecusiveNavigationObject = {
   BottomTabNavigation: {
@@ -83,7 +53,7 @@ const myRouter: RecusiveNavigationObject = {
             screens: [
               {
                 Screen: {
-                  path: routes.inbound.idle,
+                  path: routes.inbound.root,
                   title: "Inbound Idle Screen",
                   component: <InboundIdleScreen />,
                 },
@@ -120,7 +90,7 @@ const myRouter: RecusiveNavigationObject = {
             screens: [
               {
                 Screen: {
-                  path: routes.picking.idle,
+                  path: routes.picking.root,
 
                   title: "Picking Idle Screen",
                   component: <PickingIdleScreen />,
@@ -167,7 +137,7 @@ const myRouter: RecusiveNavigationObject = {
                     {
                       Screen: {
                         title: "Stock check idle Screen",
-                        path: routes.inventory.stockChecks.idle,
+                        path: routes.inventory.stockChecks.root,
                         component: <InventoryStockChecksIdleScreen />,
                       },
                     },
@@ -182,7 +152,7 @@ const myRouter: RecusiveNavigationObject = {
                     {
                       Screen: {
                         title: "Stock corrections idle Screen",
-                        path: routes.inventory.stockCorrections.idle,
+                        path: routes.inventory.stockCorrections.root,
                         component: <InventoryStockCorrectionsIdleScreen />,
                       },
                     },

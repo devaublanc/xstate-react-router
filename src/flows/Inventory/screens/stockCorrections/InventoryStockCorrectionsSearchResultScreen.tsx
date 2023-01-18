@@ -8,7 +8,7 @@ export default function InventoryStockCorrectionsSearchResultScreen() {
       <Text fontSize={"xl"} fontWeight="bold">
         Inventory Stock corrections Search result
       </Text>
-      <Link to={routes.inventory.stockCorrections.idle} replace={true}>
+      <Link to={routes.inventory.stockCorrections.root} replace={true}>
         Finish
       </Link>
     </>
