@@ -1,4 +1,4 @@
-import { createBrowserRouter, Link } from "react-router-dom";
+import { createBrowserRouter, Link, RouteObject } from "react-router-dom";
 import ErrorScreen from "./error/ErrorScreen";
 import { StackNavigation } from "../core/navigation/StackNavigation";
 import HomeScreen from "./home/HomeScreen";
@@ -11,82 +11,163 @@ import { XStatePickingProvider } from "./picking/machines/XstatePickingMachinePr
 import { routes } from "./routes";
 import { SearchIcon, SunIcon, TimeIcon } from "@chakra-ui/icons";
 import { StackNavigationScreen } from "../core/navigation/StackNavigationScreen";
+import InboundIdleScreen from "./inbound/screens/InboundIdleScreen";
+import InboundPreDroppingScreen from "./inbound/screens/InboundPreDroppingScreen";
+import InboundDroppingScreen from "./inbound/screens/InboundDroppingScreen";
+import InventoryIndexScreen from "./Inventory/screens/InventoryIndexScreen";
+import InventoryStockChecksIdleScreen from "./Inventory/screens/stockChecks/InventoryStockChecksIdleScreen";
+import InventoryStockCorrectionsIdleScreen from "./Inventory/screens/stockCorrections/InventoryStockCorrectionsIdleScreen";
+import InventoryStockCorrectionsSearchResultScreen from "./Inventory/screens/stockCorrections/InventoryStockCorrectionsSearchResultScreen";
+import { ReactElement } from "react";
+import { RecusiveNavigationObject } from "../core/navigation/types";
+import { navigationToBrowserRouter } from "../core/navigation/navigationToBrowserRouter";
 
-export const router = createBrowserRouter([
-  {
+const myRouter: RecusiveNavigationObject = {
+  BottomTabNavigation: {
     path: "/",
-    element: (
-      <BottomTabNavigation
-        headerElement={
-          <Heading p="2">
-            <Link to="/">Hub One</Link>
-          </Heading>
-        }
-        items={[
-          {
-            id: "home",
-            path: routes.root,
-            title: "Home",
-            icon: <SearchIcon />,
-          },
-          {
-            id: "picking",
-            path: routes.picking.idle,
-            title: "PickingStack driven by XState",
-            icon: <SunIcon />,
-          },
-          {
-            id: "inbound",
-            path: routes.inbound.idle,
-            title: "Inbound",
-            icon: <TimeIcon />,
-          },
-        ]}
-      />
+    headerElement: (
+      <Heading p="2">
+        <Link to="/">Hub One</Link>
+      </Heading>
     ),
-    errorElement: <ErrorScreen />,
-    children: [
+    tabs: [
       {
-        index: true,
-        element: <HomeScreen />,
+        title: "Home",
+        path: "/home",
+        icon: <SearchIcon />,
+        content: {
+          Screen: {
+            path: "/home",
+            title: "Home Screen",
+            component: <HomeScreen />,
+          },
+        },
       },
       {
-        path: routes.picking.idle,
-        element: (
-          <XStatePickingProvider>
-            <StackNavigation
-              rootPath={routes.picking.idle}
-              defaultHeaderTitle="Picking Stack"
-            />
-          </XStatePickingProvider>
-        ),
-        children: [
-          {
-            index: true,
-            element: (
-              <StackNavigationScreen headerTitle="Idle">
-                <PickingIdleScreen />
-              </StackNavigationScreen>
-            ),
+        title: "Inbound",
+        path: "/inbound",
+        icon: <TimeIcon />,
+        content: {
+          StackNavigation: {
+            path: routes.inbound.root,
+            defaultTitle: "Inbound Stack",
+            screens: [
+              {
+                Screen: {
+                  path: routes.inbound.root,
+                  // title: "Inbound Idle Screen",
+                  component: <InboundIdleScreen />,
+                },
+              },
+              {
+                Screen: {
+                  path: routes.inbound.preDropping,
+                  title: "Inbound pre dropping screen",
+                  component: <InboundPreDroppingScreen />,
+                },
+              },
+              {
+                Screen: {
+                  path: routes.inbound.dropping,
+                  title: "Inbound dropping screen",
+                  component: <InboundDroppingScreen />,
+                },
+              },
+            ],
           },
-          {
-            path: routes.picking.scanItems,
-            element: (
-              <StackNavigationScreen headerTitle="Scan items">
-                <PickingScanItemsScreen />
-              </StackNavigationScreen>
+        },
+      },
+      {
+        title: "Picking",
+        path: "/picking",
+        icon: <SunIcon />,
+        content: {
+          StackNavigation: {
+            path: routes.picking.root,
+            defaultTitle: "Picking Stack",
+            customWrapper: ({ children }) => (
+              <XStatePickingProvider>{children}</XStatePickingProvider>
             ),
+            screens: [
+              {
+                Screen: {
+                  path: routes.picking.root,
+
+                  title: "Picking Idle Screen",
+                  component: <PickingIdleScreen />,
+                },
+              },
+              {
+                Screen: {
+                  path: routes.picking.scanItems,
+                  title: "Picking Scan Items Screen",
+                  component: <PickingScanItemsScreen />,
+                },
+              },
+              {
+                Screen: {
+                  path: routes.picking.scanContainers,
+
+                  title: "Picking Scan Containers Screen",
+                  component: <PickingScanContainersScreen />,
+                },
+              },
+            ],
           },
-          {
-            path: routes.picking.scanContainers,
-            element: (
-              <StackNavigationScreen headerTitle="Scan containers">
-                <PickingScanContainersScreen />
-              </StackNavigationScreen>
-            ),
+        },
+      },
+      {
+        title: "Inventory",
+        path: "/inventory",
+        icon: <TimeIcon />,
+        content: {
+          StackNavigation: {
+            defaultTitle: "Inventory",
+            path: routes.inventory.root,
+            screens: [
+              {
+                Screen: {
+                  title: "Inventory index",
+                  path: routes.inventory.root,
+                  component: <InventoryIndexScreen />,
+                },
+                StackNavigation: {
+                  defaultTitle: "Stack navigation Stock checks",
+                  path: routes.inventory.stockChecks.root,
+                  screens: [
+                    {
+                      Screen: {
+                        title: "Stock check idle Screen",
+                        path: routes.inventory.stockChecks.root,
+                        component: <InventoryStockChecksIdleScreen />,
+                      },
+                    },
+                  ],
+                },
+              },
+              {
+                StackNavigation: {
+                  defaultTitle: "Stack navigation Stock corrections",
+                  path: routes.inventory.stockCorrections.root,
+                  screens: [
+                    {
+                      Screen: {
+                        title: "Stock corrections idle Screen",
+                        path: routes.inventory.stockCorrections.root,
+                        component: <InventoryStockCorrectionsIdleScreen />,
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
           },
-        ],
+        },
       },
     ],
   },
-]);
+};
+
+const generatedRoute = navigationToBrowserRouter(myRouter);
+
+export const router = createBrowserRouter([generatedRoute]);

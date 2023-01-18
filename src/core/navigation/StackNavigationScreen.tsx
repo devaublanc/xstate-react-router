@@ -9,19 +9,26 @@ export type StackContext = {
 };
 
 export type StackNavigationScreenProps = {
-  headerTitle: string;
+  headerTitle?: string;
   children: ReactElement | ReactElement[];
 };
 
 export function StackNavigationScreen({
   headerTitle,
+
   children,
 }: StackNavigationScreenProps) {
-  const { setHeaderTitle } = useStackContext();
-
+  const { setHeaderTitle, defaultHeaderTitle } = useStackContext();
   useEffect(() => {
-    setHeaderTitle(headerTitle);
-  }, [headerTitle]);
+    // console.log(location.pathname === rootPath);
+    if (headerTitle) {
+      setHeaderTitle(headerTitle);
+    } else if (defaultHeaderTitle) {
+      setHeaderTitle(defaultHeaderTitle);
+    } else {
+      setHeaderTitle("");
+    }
+  }, [headerTitle, defaultHeaderTitle]);
 
   return (
     <Flex

@@ -3,7 +3,6 @@ import {
   createContext,
   ReactElement,
   useContext,
-  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -13,6 +12,8 @@ import { Header } from "../ui/Header";
 export type StackContext = {
   setHeaderElement: (header: ReactElement) => void;
   setHeaderTitle: (title: string) => void;
+  defaultHeaderElement?: ReactElement;
+  defaultHeaderTitle?: string;
 };
 
 export type StackNavigationProps = {
@@ -44,13 +45,11 @@ export function StackNavigation({
     () => ({
       setHeaderElement,
       setHeaderTitle,
+      defaultHeaderTitle,
+      defaultHeaderElement,
     }),
-    [setHeaderElement, setHeaderTitle]
+    [setHeaderElement, setHeaderTitle, defaultHeaderTitle, defaultHeaderElement]
   );
-
-  // useEffect(() => {
-  //   setHeaderTitle(defaultHeaderTitle);
-  // }, [location.pathname]);
 
   return (
     <StackContext.Provider value={values}>

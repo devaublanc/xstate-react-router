@@ -29,14 +29,31 @@ export const pickingMachine = createMachine(
     initial: "idle",
     states: {
       idle: {
+        initial: "idleSubstateFoo",
+        states: {
+          idleSubstateFoo: {},
+        },
         meta: {
-          route: routes.picking.idle,
+          route: routes.picking.root,
         },
         on: {
           GO_TO_SCAN_ITEMS: {
             target: "scanningItems",
           },
+          GO_TO_IDLE_SUBSTATE: {
+            target: "idle.idleSubstateFoo",
+          },
+          GO_TO_TEST: {
+            target: "test",
+          },
           GO_BACK: {},
+        },
+      },
+      test: {
+        on: {
+          EXIT: {
+            target: "idle",
+          },
         },
       },
       scanningItems: {

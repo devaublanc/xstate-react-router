@@ -18,6 +18,12 @@ export interface Typegen0 {
   eventsCausingDelays: {};
   eventsCausingGuards: {};
   eventsCausingServices: {};
-  matchesStates: "idle" | "scanningContainers" | "scanningItems";
+  matchesStates:
+    | "idle"
+    | "idle.idleSubstateFoo"
+    | "scanningContainers"
+    | "scanningItems"
+    | "test"
+    | { idle?: "idleSubstateFoo" };
   tags: never;
 }
