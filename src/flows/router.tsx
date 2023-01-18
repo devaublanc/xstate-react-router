@@ -91,7 +91,6 @@ const myRouter: RecusiveNavigationObject = {
               {
                 Screen: {
                   path: routes.picking.root,
-
                   title: "Picking Idle Screen",
                   component: <PickingIdleScreen />,
                 },
@@ -99,7 +98,6 @@ const myRouter: RecusiveNavigationObject = {
               {
                 Screen: {
                   path: routes.picking.scanItems,
-                  title: "Picking Scan Items Screen",
                   component: <PickingScanItemsScreen />,
                 },
               },
@@ -121,7 +119,8 @@ const myRouter: RecusiveNavigationObject = {
         icon: <TimeIcon />,
         content: {
           StackNavigation: {
-            defaultHeaderElement: null,
+            // defaultHeaderElement: null,
+            defaultTitle: "Inventory Stack",
             path: routes.inventory.root,
             screens: [
               {

@@ -8,12 +8,7 @@ import { Info } from "../components/Info";
 import { usePickingService } from "../machines/XstatePickingMachineProvider";
 
 export default function PickingScanItemsScreen() {
-  const { setHeaderTitle } = useStackContext();
   const pickingService = usePickingService();
-
-  useEffect(() => {
-    setHeaderTitle("Scan Items");
-  }, []);
 
   return (
     <>
