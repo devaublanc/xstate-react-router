@@ -10,7 +10,7 @@ export type RecusiveNavigationObject =
   | {
       BottomTabNavigation: {
         path: string;
-        headerElement: ReactElement;
+        headerElement?: ReactElement;
         tabs: {
           path: string;
           title: string;

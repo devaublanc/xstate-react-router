@@ -19,9 +19,10 @@ export function BottomTabNavigation({ items, headerElement }: BottomTabProps) {
   const values = useMemo(() => ({}), []);
   const location = useLocation();
 
-  const isVisible =
-    items.some(item => item.path === location.pathname) ||
-    location.pathname === "/";
+  // const isVisible =
+  //   items.some(item => item.path === location.pathname) ||
+  //   location.pathname === "/";
+  const isVisible = true;
 
   return (
     <BottomTabContext.Provider value={values}>

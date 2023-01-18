@@ -14,6 +14,8 @@ export const routes = {
     root: "/inventory",
     stockChecks: {
       root: "/inventory/stock-checks",
+      idle: "/inventory/stock-checks/idle",
+      detail: "/inventory/stock-checks/detail",
     },
     stockCorrections: {
       root: "/inventory/stock-corrections",

@@ -21,6 +21,7 @@ import InventoryStockCorrectionsSearchResultScreen from "./Inventory/screens/sto
 import { ReactElement } from "react";
 import { RecusiveNavigationObject } from "../core/navigation/types";
 import { navigationToBrowserRouter } from "../core/navigation/navigationToBrowserRouter";
+import InventoryStockChecksDetailScreen from "./Inventory/screens/stockChecks/InventoryStockChecksDetailScreen";
 
 const myRouter: RecusiveNavigationObject = {
   BottomTabNavigation: {
@@ -122,15 +123,48 @@ const myRouter: RecusiveNavigationObject = {
         icon: <TimeIcon />,
         content: {
           StackNavigation: {
-            defaultTitle: "Inventory",
+            defaultTitle: "Inventory Stack",
             path: routes.inventory.root,
             screens: [
               {
                 Screen: {
-                  title: "Inventory index",
+                  title: "Inventory Index Screen",
                   path: routes.inventory.root,
                   component: <InventoryIndexScreen />,
                 },
+              },
+              {
+                BottomTabNavigation: {
+                  path: routes.inventory.stockChecks.root,
+                  tabs: [
+                    {
+                      title: "Inventory StockChecks idle",
+                      icon: <SearchIcon />,
+                      path: routes.inventory.stockChecks.idle,
+                      content: {
+                        Screen: {
+                          title: "Stock check idle Screen",
+                          path: routes.inventory.stockChecks.idle,
+                          component: <InventoryStockChecksIdleScreen />,
+                        },
+                      },
+                    },
+                    {
+                      title: "Inventory StockChecks Detail",
+                      icon: <SearchIcon />,
+                      path: routes.inventory.stockChecks.detail,
+                      content: {
+                        Screen: {
+                          title: "Stock check Detail Screen",
+                          path: routes.inventory.stockChecks.detail,
+                          component: <InventoryStockChecksDetailScreen />,
+                        },
+                      },
+                    },
+                  ],
+                },
+              },
+              {
                 StackNavigation: {
                   defaultTitle: "Stack navigation Stock checks",
                   path: routes.inventory.stockChecks.root,
@@ -140,6 +174,13 @@ const myRouter: RecusiveNavigationObject = {
                         title: "Stock check idle Screen",
                         path: routes.inventory.stockChecks.root,
                         component: <InventoryStockChecksIdleScreen />,
+                      },
+                    },
+                    {
+                      Screen: {
+                        title: "Stock check Detail Screen",
+                        path: routes.inventory.stockChecks.detail,
+                        component: <InventoryStockChecksDetailScreen />,
                       },
                     },
                   ],
