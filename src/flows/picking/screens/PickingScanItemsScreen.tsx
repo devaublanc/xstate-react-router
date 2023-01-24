@@ -45,9 +45,8 @@ export default function PickingScanItemsScreen() {
       <Modal isOpen={isConfirmOpen} onClose={cancel}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader>Do you want to leave the flow ?</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>Sure ?</ModalBody>
 
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={cancel}>
