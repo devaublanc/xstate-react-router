@@ -7,3 +7,4 @@ nested stack should prev on their own routes
 add some tests
 add active link strategy
 persist with xstate provider
+make the xstate provider generic

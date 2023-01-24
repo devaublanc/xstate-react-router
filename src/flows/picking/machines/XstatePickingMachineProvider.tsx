@@ -1,14 +1,28 @@
 import { useInterpret } from "@xstate/react";
 import { InterpreterFrom } from "xstate";
 
-import { createContext, useContext, useEffect, useMemo } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { usePickingActionsImplems } from "./pickingActions";
 import { usePickingServicesImplems } from "./pickingServices";
 import { pickingMachine, PICKING_MACHINE_ID } from "./pickingMachine";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDisclosure } from "../../../core/useDisclosure";
+import React from "react";
 
 export const XStatePickingContext = createContext({
+  confirm: () => {},
+  cancel: () => {},
   pickingService: {} as InterpreterFrom<typeof pickingMachine>,
+  isConfirmOpen: false,
+  withGoBackConfirmation: false,
+  setWithGoBackConfirmation: (confirm: boolean) => {},
 });
 
 export function XStatePickingProvider({
@@ -20,6 +34,13 @@ export function XStatePickingProvider({
   const services = usePickingServicesImplems();
   const navigate = useNavigate();
   const location = useLocation();
+  const {
+    isOpen: isConfirmOpen,
+    open: showConfirmModal,
+    close: cancel,
+  } = useDisclosure();
+
+  const [withGoBackConfirmation, setWithGoBackConfirmation] = useState(false);
 
   const pickingService = useInterpret(
     pickingMachine,
@@ -43,21 +64,48 @@ export function XStatePickingProvider({
     }
   );
 
-  useEffect(() => {
-    const onGoBack = () => {
-      pickingService.send("GO_BACK");
-    };
-    window.addEventListener("popstate", onGoBack);
-    return () => window.removeEventListener("popstate", onGoBack);
+  const goBack = useCallback(() => {
+    pickingService.send("GO_BACK");
   }, []);
 
-  const values = useMemo(() => ({ pickingService }), [pickingService]);
+  const confirm = useCallback(() => {
+    goBack();
+  }, [goBack]);
+
+  useEffect(() => {
+    const f = withGoBackConfirmation ? showConfirmModal : goBack;
+    window.addEventListener("popstate", f);
+    return () => window.removeEventListener("popstate", f);
+  }, [goBack, withGoBackConfirmation]);
+
+  const values = useMemo(
+    () => ({
+      pickingService,
+      confirm,
+      cancel,
+      isConfirmOpen,
+      setWithGoBackConfirmation,
+      withGoBackConfirmation,
+    }),
+    [
+      pickingService,
+      confirm,
+      cancel,
+      isConfirmOpen,
+      setWithGoBackConfirmation,
+      withGoBackConfirmation,
+    ]
+  );
 
   return (
     <XStatePickingContext.Provider value={values}>
       {children}
     </XStatePickingContext.Provider>
   );
+}
+
+export function usePickingServiceContext() {
+  return useContext(XStatePickingContext);
 }
 
 export function usePickingService() {
